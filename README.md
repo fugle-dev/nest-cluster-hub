@@ -1,73 +1,168 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# nest-cluster-hub
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+[![NPM version][npm-image]][npm-url]
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+> A Nest module for communication between master and worker processes
 
 ## Installation
 
-```bash
-$ npm install
-```
-
-## Running the app
+To begin using it, we first install the required dependency.
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+$ npm install --save nest-cluster-hub
 ```
 
-## Test
+## Getting started
 
-```bash
-# unit tests
-$ npm run test
+Once the installation is complete, import the `ClusterHubModule` into the root `AppModule` and run the `forRoot()` static method as shown below:
 
-# e2e tests
-$ npm run test:e2e
+```typescript
+import { Module } from '@nestjs/common';
+import { ClusterHubModule } from 'nest-cluster-hub';
 
-# test coverage
-$ npm run test:cov
+@Module({
+  imports: [
+    ClusterHubModule.forRoot(),
+  ],
+})
+export class AppModule {}
 ```
 
-## Support
+Next, inject `ClusterHub` using `@InjectClusterHub()` decorator.
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```typescript
+constructor(@InjectClusterHub() private readonly hub: ClusterHub) {}
+```
 
-## Stay in touch
+## Sending messages
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Sending a message to a specific worker
+
+```typescript
+if (cluster.isPrimary) {
+  this.hub.sendToWorker(worker, 'master-to-worker', 1);
+}
+```
+
+Note that you can just pass a string instead of `cluster.Worker`. The library uses [hashring](https://github.com/3rd-Eden/node-hashring) to let you find the correct worker for the key which is closest to the point after what the given key hashes to.
+
+### Sending a message to a random worker
+
+```typescript
+if (cluster.isPrimary) {
+  this.hub.sendToRandomWorker('master-to-worker', 1);
+}
+```
+
+### Sending (broadcasting) a message to all workers
+
+```typescript
+if (cluster.isPrimary) {
+  this.hub.sendToWorkers('master-to-worker', 1);
+}
+```
+
+### Sending a message to master (primary)
+
+```typescript
+if (cluster.isPrimary) {
+  this.hub.sendToMaster('master-to-master', 1);
+}
+
+if (cluster.isWorker) {
+  this.hub.sendToMaster('worker-to-worker', 1);
+}
+```
+
+### Handling received messages
+
+```typescript
+if (cluster.isPrimary) {
+  this.hub.on('master-to-master', (data) => {
+    console.log('master-to-master received');
+  });
+
+  this.hub.on('worker-to-master', (data) => {
+    console.log('worker-to-master received');
+  });
+}
+
+if (cluster.isWorker) {
+  this.hub.on('master-to-worker', () => {
+    console.log('master-to-worker received');
+  });
+}
+```
+
+## Request-response
+
+### Sending a request to a specific worker
+
+```typescript
+if (cluster.isPrimary) {
+  this.hub.requestWorker(worker, 'mult', { a: 5, b: 7 }, (err, sum) => {
+    console.log('Mult in master: ' + sum);
+  });
+}
+```
+
+You can also pass a string instead of `cluster.Worker` to find the correct worker.
+
+### Sending a request to a random worker
+
+```typescript
+if (cluster.isPrimary) {
+  this.hub.requestRandomWorker('mult', { a: 5, b: 7 }, (err, sum) => {
+    console.log('Mult in master: ' + sum);
+  });
+}
+```
+
+### Sending a request to master (primary)
+
+```typescript
+if (cluster.isPrimary) {
+  this.hub.requestMaster('sum', { a: 5, b: 7 }, (err, sum) => {
+    console.log('Sum in master: ' + sum);
+  });
+}
+
+if (cluster.isWorker) {
+  this.hub.requestMaster('sum', { a: 5, b: 7 }, (err, sum) => {
+    console.log('Sum in worker: ' + sum);
+  });
+}
+```
+
+### Handling requests and responses
+
+```typescript
+if (cluster.isPrimary) {
+  this.hub.on('sum', (data, sender, callback) => {
+    callback(null, data.a + data.b);
+  });
+}
+
+if (cluster.isWorker) {
+  this.hub.on('mult', (data, sender, callback) => {
+    callback(null, data.a * data.b);
+  });
+}
+```
+
+## Sharing data between processes
+
+```typescript
+hub.set('foo', 'bar', () => {
+  hub.get('foo', value => {
+    console.log(value === 'bar'); // true
+  });
+});
+```
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+[MIT](LICENSE)
+
+[npm-image]: https://img.shields.io/npm/v/nest-cluster-hub.svg
+[npm-url]: https://npmjs.com/package/nest-cluster-hub
