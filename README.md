@@ -28,7 +28,7 @@ import { ClusterHubModule } from 'nest-cluster-hub';
 export class AppModule {}
 ```
 
-Next, inject `ClusterHub` using `@InjectClusterHub()` decorator.
+Next, inject the `ClusterHub` instance using the `@InjectClusterHub()` decorator.
 
 ```typescript
 constructor(@InjectClusterHub() private readonly hub: ClusterHub) {}
@@ -62,7 +62,7 @@ if (cluster.isPrimary) {
 }
 ```
 
-### Sending a message to master (primary)
+### Sending a message to the master (primary)
 
 ```typescript
 if (cluster.isPrimary) {
@@ -118,7 +118,7 @@ if (cluster.isPrimary) {
 }
 ```
 
-### Sending a request to master (primary)
+### Sending a request to the master (primary)
 
 ```typescript
 if (cluster.isPrimary) {
@@ -153,12 +153,16 @@ if (cluster.isWorker) {
 ## Sharing data between processes
 
 ```typescript
-hub.set('foo', 'bar', () => {
-  hub.get('foo', value => {
+this.hub.set('foo', 'bar', () => {
+  this.hub.get('foo', (err, value) => {
     console.log(value === 'bar'); // true
   });
 });
 ```
+
+## Example
+
+A working example is available [here](example).
 
 ## License
 
