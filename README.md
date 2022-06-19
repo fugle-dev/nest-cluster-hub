@@ -88,7 +88,7 @@ if (cluster.isPrimary) {
 }
 
 if (cluster.isWorker) {
-  this.hub.on('master-to-worker', () => {
+  this.hub.on('master-to-worker', (data) => {
     console.log('master-to-worker received');
   });
 }
@@ -158,6 +158,24 @@ this.hub.set('foo', 'bar', () => {
     console.log(value === 'bar'); // true
   });
 });
+```
+
+## Retrieving existing workers
+
+### Find a worker
+
+```typescript
+if (cluster.isPrimary) {
+  this.hub.getWorker('foo');
+}
+```
+
+### Retrieving all workers
+
+```typescript
+if (cluster.isPrimary) {
+  this.hub.getWorkers();
+}
 ```
 
 ## Example
