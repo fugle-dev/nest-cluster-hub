@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/chunkai1312/nest-cluster-hub/compare/v0.2.1...v0.3.0) (2022-06-19)
+
+
+### Features
+
+* add support for setting listeners with decorators ([015a599](https://github.com/chunkai1312/nest-cluster-hub/commit/015a599ba265db8c7b3f6f9d2e495b23ff6c7ed8))
+
 ### [0.2.1](https://github.com/chunkai1312/nest-cluster-hub/compare/v0.2.0...v0.2.1) (2022-06-19)
 
 ## [0.2.0](https://github.com/chunkai1312/nest-cluster-hub/compare/v0.1.2...v0.2.0) (2022-06-19)

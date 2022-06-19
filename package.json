@@ -1,6 +1,6 @@
 {
   "name": "nest-cluster-hub",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "A Nest module for communication between master and worker processes",
   "author": "Chun-Kai Wang <chunkai1312@gmail.com>",
   "keywords": [
