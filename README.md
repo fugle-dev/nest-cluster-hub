@@ -180,7 +180,7 @@ this.hub.set('foo', 'bar', () => {
 
 ## Retrieving existing workers
 
-### Find a worker
+### Finding a worker
 
 ```typescript
 if (cluster.isPrimary) {
