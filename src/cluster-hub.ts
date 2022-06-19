@@ -29,12 +29,10 @@ export class ClusterHub extends Hub {
   }
 
   get(key: string, callback?: Hub.Callback) {
-    // @ts-ignore
     return this.requestMaster(LOCALS_GET_EVENT, key, callback);
   }
 
   set(key: string, value: any, callback?: Hub.Callback) {
-    // @ts-ignore
     return this.requestMaster(LOCALS_SET_EVENT, { key, value }, callback);
   }
 
@@ -53,12 +51,10 @@ export class ClusterHub extends Hub {
   private setupLocals() {
     this.locals = new Map();
 
-    // @ts-ignore
     this.on(LOCALS_GET_EVENT, (key, sender, callback) => {
       callback(null, this.locals.get(key));
     });
 
-    // @ts-ignore
     this.on(LOCALS_SET_EVENT, ({ key, value }, sender, callback) => {
       this.locals.set(key, value);
       callback(null);
