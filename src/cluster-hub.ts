@@ -36,6 +36,20 @@ export class ClusterHub extends Hub {
     return this.requestMaster(LOCALS_SET_EVENT, { key, value }, callback);
   }
 
+  getWorker(key: string): cluster.Worker {
+    if (cluster.isWorker) {
+      throw new Error('The current process is not a primary');
+    }
+    return cluster.workers[this.ring.get(key)];
+  }
+
+  getWorkers(): NodeJS.Dict<cluster.Worker> {
+    if (cluster.isWorker) {
+      throw new Error('The current process is not a primary');
+    }
+    return cluster.workers;
+  }
+
   private setupWorkers() {
     this.ring = new HashRing([]);
 
@@ -59,9 +73,5 @@ export class ClusterHub extends Hub {
       this.locals.set(key, value);
       callback(null);
     });
-  }
-
-  private getWorker(key: string): cluster.Worker {
-    return cluster.workers[this.ring.get(key)];
   }
 }
