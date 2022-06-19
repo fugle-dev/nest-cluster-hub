@@ -44,7 +44,7 @@ if (cluster.isPrimary) {
 }
 ```
 
-Note that you can just pass a string instead of `cluster.Worker`. The library uses [HashRing](https://github.com/3rd-Eden/node-hashring) to let you find the correct worker for the key which is closest to the point after what the given key hashes to.
+You can just pass any string instead of `cluster.Worker`. The library uses [HashRing](https://github.com/3rd-Eden/node-hashring) to let you find the correct worker for the key which is closest to the point after what the given key hashes to.
 
 ### Sending a message to a random worker
 
@@ -94,6 +94,15 @@ if (cluster.isWorker) {
 }
 ```
 
+### Handling received messages with `@OnMessage()` decorator
+
+```typescript
+@OnMessage('master-to-worker')
+async handleMessage(data) {
+  console.log('master-to-worker received');
+}
+```
+
 ## Request-response
 
 ### Sending a request to a specific worker
@@ -106,7 +115,7 @@ if (cluster.isPrimary) {
 }
 ```
 
-You can also pass a string instead of `cluster.Worker` to find the correct worker.
+You can also pass any string instead of `cluster.Worker` to find the correct worker.
 
 ### Sending a request to a random worker
 
@@ -147,6 +156,15 @@ if (cluster.isWorker) {
   this.hub.on('mult', (data, sender, callback) => {
     callback(null, data.a * data.b);
   });
+}
+```
+
+### Handling requests and responses with `@OnRequest()` decorator
+
+```typescript
+@OnRequest('mult')
+async handleMessage(data, sender, callback) {
+  callback(null, data.a * data.b);
 }
 ```
 
