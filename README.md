@@ -2,7 +2,7 @@
 
 [![NPM version][npm-image]][npm-url]
 
-> A Nest module for communication between master and worker processes
+> A Nest module for communication between master and worker processes based on [node-cluster-hub](https://github.com/sirian/node-cluster-hub)
 
 ## Installation
 
@@ -44,7 +44,7 @@ if (cluster.isPrimary) {
 }
 ```
 
-Note that you can just pass a string instead of `cluster.Worker`. The library uses [hashring](https://github.com/3rd-Eden/node-hashring) to let you find the correct worker for the key which is closest to the point after what the given key hashes to.
+Note that you can just pass a string instead of `cluster.Worker`. The library uses [HashRing](https://github.com/3rd-Eden/node-hashring) to let you find the correct worker for the key which is closest to the point after what the given key hashes to.
 
 ### Sending a message to a random worker
 
@@ -162,7 +162,7 @@ this.hub.set('foo', 'bar', () => {
 
 ## Example
 
-A working example is available [here](example).
+A working example is available [here](https://github.com/chunkai1312/nest-cluster-hub/tree/master/example).
 
 ## License
 
