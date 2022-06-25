@@ -19,7 +19,6 @@ export class ClusterHubExplorer implements OnApplicationBootstrap, OnApplication
   }
 
   onApplicationShutdown() {
-    // @ts-ignore
     this.hub.removeAllListeners();
   }
 
@@ -47,7 +46,6 @@ export class ClusterHubExplorer implements OnApplicationBootstrap, OnApplication
 
     const { type, options } = clusterHubListenerMetadata;
     const listenerMethod = !!options?.prependListener
-      // @ts-ignore
       ? this.hub.prependListener.bind(this.hub)
       : this.hub.on.bind(this.hub);
 
