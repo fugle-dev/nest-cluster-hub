@@ -809,10 +809,10 @@
     "@types/connect" "*"
     "@types/node" "*"
 
-"@types/cluster-hub@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@types/cluster-hub/-/cluster-hub-0.1.1.tgz#f1e0532d73ae6c5b275f87537eaf659ab3527ab8"
-  integrity sha512-5qu4CnGl46+GYMR70YFJhx900LbM5PG1/mJacVYnsC2HTFngcCym/oryZ3C2vh0QF0mme8+QWQiFNusskfybNg==
+"@types/cluster-hub@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@types/cluster-hub/-/cluster-hub-0.1.2.tgz#f468a174435f11f1a2f5c68adcaf337b82cd2207"
+  integrity sha512-nyGqOui/OLJJ2c7sLTczOkm1UhcNZideRV4yEknfQoyM5/KfmjWz5tngvmMkiMa+th8SxBrrNy8W69sYd6YCMQ==
   dependencies:
     "@types/node" "*"
 
