@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.2](https://github.com/chunkai1312/nest-cluster-hub/compare/v0.3.1...v0.3.2) (2022-12-08)
+
+
+### Bug Fixes
+
+* support for nest version 9 ([941c062](https://github.com/chunkai1312/nest-cluster-hub/commit/941c062c331da1727896aeadd73f399576e03011))
+
 ### [0.3.1](https://github.com/chunkai1312/nest-cluster-hub/compare/v0.3.0...v0.3.1) (2022-06-25)
 
 ## [0.3.0](https://github.com/chunkai1312/nest-cluster-hub/compare/v0.2.1...v0.3.0) (2022-06-19)
