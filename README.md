@@ -198,7 +198,7 @@ if (cluster.isPrimary) {
 
 ## Example
 
-A working example is available [here](https://github.com/chunkai1312/nest-cluster-hub/tree/master/example).
+A working example is available [here](https://github.com/fugle-dev/nest-cluster-hub/tree/master/example).
 
 ## License
 

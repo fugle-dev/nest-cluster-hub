@@ -87,10 +87,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chunkai1312/nest-cluster-hub.git"
+    "url": "git+https://github.com/fugle-dev/nest-cluster-hub.git"
   },
   "bugs": {
-    "url": "https://github.com/chunkai1312/nest-cluster-hub/issues"
+    "url": "https://github.com/fugle-dev/nest-cluster-hub/issues"
   },
-  "homepage": "https://github.com/chunkai1312/nest-cluster-hub#readme"
+  "homepage": "https://github.com/fugle-dev/nest-cluster-hub#readme"
 }
