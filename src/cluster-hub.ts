@@ -4,6 +4,7 @@ import * as HashRing from 'hashring';
 import { LOCALS_GET_EVENT, LOCALS_SET_EVENT } from './cluster-hub.constants';
 
 export class ClusterHub extends Hub {
+  private static instance: ClusterHub;
   private ring: HashRing;
   private locals: Map<string, any>;
 
@@ -14,6 +15,13 @@ export class ClusterHub extends Hub {
       this.setupWorkers();
       this.setupLocals();
     }
+  }
+
+  public static getInstance(): ClusterHub {
+    if (!ClusterHub.instance) {
+      ClusterHub.instance = new ClusterHub();
+    }
+    return ClusterHub.instance;
   }
 
   sendToWorker(worker: cluster.Worker | string, type: string, data?: any): boolean {

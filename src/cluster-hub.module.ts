@@ -17,7 +17,7 @@ export class ClusterHubModule {
         ClusterHubMetadataAccessor,
         {
           provide: CLUSTER_HUB,
-          useValue: new ClusterHub(),
+          useValue: ClusterHub.getInstance(),
         },
       ],
       exports: [CLUSTER_HUB],
