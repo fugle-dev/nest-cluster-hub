@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.6](https://github.com/fugle-dev/nest-cluster-hub/compare/v0.3.5...v0.3.6) (2024-04-22)
+
+
+### Bug Fixes
+
+* ensure clusterhub is singleton ([1c9442e](https://github.com/fugle-dev/nest-cluster-hub/commit/1c9442e96002d98b8c123a4e59ccd9bf611aa4be))
+
 ### [0.3.5](https://github.com/fugle-dev/nest-cluster-hub/compare/v0.3.4...v0.3.5) (2023-11-21)
 
 ### [0.3.4](https://github.com/fugle-dev/nest-cluster-hub/compare/v0.3.3...v0.3.4) (2023-09-28)
