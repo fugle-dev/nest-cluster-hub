@@ -815,6 +815,13 @@
     "@types/connect" "*"
     "@types/node" "*"
 
+"@types/cluster-hub@^0.1.2":
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/@types/cluster-hub/-/cluster-hub-0.1.5.tgz#7d8c354f0e17ce8ade6abdbb846ed1d327413ea6"
+  integrity sha512-qS0NFlHn+k/k2bf7zOoG7BDYVjCncvAXYw7YnAO476yWm8/2Bnhj04G5WoOxv07kDSuo5O+bWdFT6D0A4hPYug==
+  dependencies:
+    "@types/node" "*"
+
 "@types/connect@*":
   version "3.4.35"
   resolved "https://registry.yarnpkg.com/@types/connect/-/connect-3.4.35.tgz#5fcf6ae445e4021d1fc2219a4873cc73a3bb2ad1"
@@ -3483,8 +3490,9 @@ neo-async@^2.6.2:
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
 "nest-cluster-hub@file:..":
-  version "0.1.0"
+  version "0.3.6"
   dependencies:
+    "@types/cluster-hub" "^0.1.2"
     cluster-hub "^0.1.2"
     hashring "^3.2.0"
 

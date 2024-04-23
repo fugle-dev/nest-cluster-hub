@@ -3,12 +3,12 @@ import { DiscoveryService, MetadataScanner } from '@nestjs/core';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { ClusterHub } from './cluster-hub';
 import { ClusterHubMetadataAccessor } from './cluster-hub-metadata.accessor';
-import { CLUSTER_HUB } from './cluster-hub.constants';
+import { CLUSTER_HUB_INSTANCE } from './cluster-hub.constants';
 
 @Injectable()
 export class ClusterHubExplorer implements OnApplicationBootstrap, OnApplicationShutdown {
   constructor(
-    @Inject(CLUSTER_HUB) private readonly hub: ClusterHub,
+    @Inject(CLUSTER_HUB_INSTANCE) private readonly hub: ClusterHub,
     private readonly discoveryService: DiscoveryService,
     private readonly metadataAccessor: ClusterHubMetadataAccessor,
     private readonly metadataScanner: MetadataScanner,
