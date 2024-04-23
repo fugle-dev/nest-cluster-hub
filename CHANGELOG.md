@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/fugle-dev/nest-cluster-hub/compare/v0.3.6...v0.4.0) (2024-04-23)
+
+
+### Features
+
+* add an option for the primary cluster to check the number of workers that are ready ([d34bf86](https://github.com/fugle-dev/nest-cluster-hub/commit/d34bf863a593153a65bfee2479b176657f7b89f4))
+* add support for waiting until the specified number of workers is ready ([9bd90c0](https://github.com/fugle-dev/nest-cluster-hub/commit/9bd90c035402af0121744478d8edbfbd693db43b))
+
 ### [0.3.6](https://github.com/fugle-dev/nest-cluster-hub/compare/v0.3.5...v0.3.6) (2024-04-22)
 
 
